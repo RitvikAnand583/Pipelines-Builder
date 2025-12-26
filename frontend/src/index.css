@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Base styles */
+@layer base {
+  body {
+    @apply font-sans antialiased;
+  }
+}
+
+/* Custom scrollbar */
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-dark-surface dark:bg-light-surface;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-dark-hover dark:bg-light-hover rounded;
+  }
+}
+
+/* React Flow customizations */
+.react-flow__edge-path {
+  stroke: #6c7086;
+  stroke-width: 2;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #89b4fa;
+}
+
+.react-flow__connection-line {
+  stroke: #89b4fa;
+  stroke-width: 2;
+}
+
+.react-flow__attribution {
+  display: none;
+}
