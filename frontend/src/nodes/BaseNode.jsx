@@ -163,7 +163,7 @@ export const BaseNode = ({
           ? 'bg-dark-surface border-dark-border shadow-node' 
           : 'bg-white border-light-border shadow-[0_2px_8px_rgba(0,0,0,0.08)]'}
       `}
-      style={style}
+      style={{ ...style, overflow: 'visible' }}
     >
       {/* Node Resizer */}
       <NodeResizer
@@ -191,15 +191,14 @@ export const BaseNode = ({
             type="target"
             position={Position.Left}
             id={input.id}
-            isConnectable={true}
-            className={`
-              !w-4 !h-4 !border-2 !rounded-full !z-10
-              !transition-all !duration-200 hover:!scale-150
-              ${isDark 
-                ? '!bg-accent-blue !border-dark-bg' 
-                : '!bg-blue-500 !border-white'}
-            `}
-            style={{ top: getHandlePosition(index, inputs.length) }}
+            style={{ 
+              top: getHandlePosition(index, inputs.length),
+            transform: 'translateY(-50%)',
+              width: 12,
+              height: 12,
+              background: isDark ? '#89b4fa' : '#3b82f6',
+              border: `2px solid ${isDark ? '#1e1e2e' : '#ffffff'}`,
+            }}
           />
         ))
       ) : (
@@ -209,14 +208,12 @@ export const BaseNode = ({
             type="target"
             position={Position.Left}
             id={inputs[0]?.id || 'input'}
-            isConnectable={true}
-            className={`
-              !w-4 !h-4 !border-2 !rounded-full !z-10
-              !transition-all !duration-200 hover:!scale-150
-              ${isDark 
-                ? '!bg-accent-blue !border-dark-bg' 
-                : '!bg-blue-500 !border-white'}
-            `}
+            style={{ 
+              width: 12,
+              height: 12,
+              background: isDark ? '#89b4fa' : '#3b82f6',
+              border: `2px solid ${isDark ? '#1e1e2e' : '#ffffff'}`,
+            }}
           />
         )
       )}
@@ -287,23 +284,31 @@ export const BaseNode = ({
       {/* Output Handles */}
       {useMultipleHandles ? (
         // Multiple positioned handles (for conditional node)
-        outputs.map((output, index) => (
-          <Handle
-            key={`output-${output.id}`}
-            type="source"
-            position={Position.Right}
-            id={output.id}
-            isConnectable={true}
-            className={`
-              !w-4 !h-4 !border-2 !rounded-full !z-10
-              !transition-all !duration-200 hover:!scale-150
-              ${isDark 
-                ? '!bg-accent-green !border-dark-bg' 
-                : '!bg-green-500 !border-white'}
-            `}
-            style={{ top: getHandlePosition(index, outputs.length) }}
-          />
-        ))
+        outputs.map((output, index) => {
+          // Custom colors for conditional outputs
+          let handleBg = isDark ? '#a6e3a1' : '#22c55e';
+          if (output.color === 'green') {
+            handleBg = isDark ? '#a6e3a1' : '#22c55e';
+          } else if (output.color === 'red') {
+            handleBg = isDark ? '#f38ba8' : '#ef4444';
+          }
+          return (
+            <Handle
+              key={`output-${output.id}`}
+              type="source"
+              position={Position.Right}
+              id={output.id}
+              style={{ 
+                top: getHandlePosition(index, outputs.length),
+                transform: 'translateY(-50%)',
+                width: 12,
+                height: 12,
+                background: handleBg,
+                border: `2px solid ${isDark ? '#1e1e2e' : '#ffffff'}`,
+              }}
+            />
+          );
+        })
       ) : (
         // Single centered handle
         outputs.length > 0 && (
@@ -311,14 +316,12 @@ export const BaseNode = ({
             type="source"
             position={Position.Right}
             id={outputs[0]?.id || 'output'}
-            isConnectable={true}
-            className={`
-              !w-4 !h-4 !border-2 !rounded-full !z-10
-              !transition-all !duration-200 hover:!scale-150
-              ${isDark 
-                ? '!bg-accent-green !border-dark-bg' 
-                : '!bg-green-500 !border-white'}
-            `}
+            style={{ 
+              width: 12,
+              height: 12,
+              background: isDark ? '#a6e3a1' : '#22c55e',
+              border: `2px solid ${isDark ? '#1e1e2e' : '#ffffff'}`,
+            }}
           />
         )
       )}

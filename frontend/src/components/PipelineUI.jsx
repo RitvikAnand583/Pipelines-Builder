@@ -41,7 +41,6 @@ const SmoothEdge = ({
     targetX,
     targetY,
     targetPosition,
-    curvature: 0.25,
   });
 
   const strokeColor = style?.stroke || '#89b4fa';

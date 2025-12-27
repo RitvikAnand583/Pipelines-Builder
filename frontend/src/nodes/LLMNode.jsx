@@ -33,9 +33,6 @@ export const LLMNode = ({ id, data, selected }) => {
         />
       </NodeField>
 
-      <NodeInfo isDark={isDark}>
-        Connects to AI language model for text generation.
-      </NodeInfo>
     </BaseNode>
   );
 };

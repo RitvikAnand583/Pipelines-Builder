@@ -27,10 +27,10 @@ export const ConditionalNode = ({ id, data, selected }) => {
       id={id}
       title="Conditional"
       type="conditional"
-      inputs={[{ id: 'value', label: 'Value' }]}
+      inputs={[{ id: 'value' }]}
       outputs={[
-        { id: 'true', label: 'True' },
-        { id: 'false', label: 'False' },
+        { id: 'true', color: 'green' },
+        { id: 'false', color: 'red' },
       ]}
       isDark={isDark}
       useMultipleHandles={true}
