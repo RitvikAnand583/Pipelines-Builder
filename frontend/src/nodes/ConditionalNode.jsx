@@ -1,7 +1,7 @@
 // ConditionalNode.jsx - Conditional branching node
 
 import { useState } from 'react';
-import { BaseNode, NodeField, NodeInput, NodeSelect, NodeInfo } from './BaseNode';
+import { BaseNode, NodeField, NodeInput, NodeSelect } from './BaseNode';
 
 const OPERATORS = [
   { value: 'equals', label: 'Equals (==)' },
@@ -55,10 +55,6 @@ export const ConditionalNode = ({ id, data, selected }) => {
           />
         </NodeField>
       )}
-
-      <NodeInfo isDark={isDark}>
-        Routes data based on condition. True path executes when condition matches.
-      </NodeInfo>
     </BaseNode>
   );
 };

@@ -20,6 +20,7 @@ export const InputNode = ({ id, data, selected }) => {
       id={id}
       title="Input"
       type="input"
+      inputs={[{ id: 'input', label: 'Input' }]}
       outputs={[{ id: 'value', label: 'Output' }]}
       isDark={isDark}
       selected={selected}

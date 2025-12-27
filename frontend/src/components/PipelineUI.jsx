@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import ReactFlow, { Controls, Background, MiniMap, getBezierPath, BaseEdge } from 'reactflow';
+import ReactFlow, { Controls, Background, MiniMap, getBezierPath } from 'reactflow';
 import { useStore } from '../store';
 import { shallow } from 'zustand/shallow';
 import { nodeTypes } from '../nodes';
@@ -20,8 +20,20 @@ const selector = (state) => ({
   onConnect: state.onConnect,
 });
 
-// Custom animated gradient edge
-const GlowEdge = ({ id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, style, markerEnd, selected }) => {
+// Custom smooth animated edge
+const SmoothEdge = ({ 
+  id, 
+  sourceX, 
+  sourceY, 
+  targetX, 
+  targetY, 
+  sourcePosition, 
+  targetPosition, 
+  style, 
+  markerEnd, 
+  selected,
+  animated 
+}) => {
   const [edgePath] = getBezierPath({
     sourceX,
     sourceY,
@@ -29,30 +41,32 @@ const GlowEdge = ({ id, sourceX, sourceY, targetX, targetY, sourcePosition, targ
     targetX,
     targetY,
     targetPosition,
+    curvature: 0.25,
   });
+
+  const strokeColor = style?.stroke || '#89b4fa';
 
   return (
     <>
-      {/* Glow effect layer */}
+      {/* Subtle glow layer */}
       <path
         d={edgePath}
         fill="none"
-        stroke={style?.stroke || '#89b4fa'}
-        strokeWidth={selected ? 8 : 6}
-        strokeOpacity={0.3}
-        filter="blur(4px)"
-        className="react-flow__edge-path"
+        stroke={strokeColor}
+        strokeWidth={selected ? 6 : 4}
+        strokeOpacity={0.15}
+        strokeLinecap="round"
       />
       {/* Main edge */}
-      <BaseEdge
-        id={id}
-        path={edgePath}
+      <path
+        d={edgePath}
+        fill="none"
+        stroke={strokeColor}
+        strokeWidth={selected ? 2.5 : 2}
+        strokeLinecap="round"
         style={{
-          ...style,
-          strokeWidth: selected ? 3 : 2,
-          filter: selected ? 'drop-shadow(0 0 6px rgba(137, 180, 250, 0.8))' : 'none',
+          filter: selected ? `drop-shadow(0 0 4px ${strokeColor})` : 'none',
         }}
-        markerEnd={markerEnd}
       />
     </>
   );
@@ -60,13 +74,13 @@ const GlowEdge = ({ id, sourceX, sourceY, targetX, targetY, sourcePosition, targ
 
 // Custom edge types
 const edgeTypes = {
-  glow: GlowEdge,
+  smooth: SmoothEdge,
 };
 
 // Custom edge styling
 const defaultEdgeOptions = {
-  type: 'glow',
-  animated: false,
+  type: 'smooth',
+  animated: true,
   style: {
     strokeWidth: 2,
   },
@@ -140,10 +154,10 @@ export const PipelineUI = ({ isDark }) => {
         nodes={nodes.map(node => ({ ...node, data: { ...node.data, isDark } }))}
         edges={edges.map(edge => ({ 
           ...edge, 
-          type: 'glow',
+          type: 'smooth',
+          animated: true,
           style: { 
             stroke: isDark ? '#89b4fa' : '#3b82f6',
-            strokeWidth: 2,
           } 
         }))}
         onNodesChange={onNodesChange}
@@ -159,8 +173,8 @@ export const PipelineUI = ({ isDark }) => {
         connectionLineType="smoothstep"
         connectionLineStyle={{ stroke: isDark ? '#89b4fa' : '#3b82f6', strokeWidth: 2 }}
         defaultEdgeOptions={defaultEdgeOptions}
-        fitView
-        fitViewOptions={{ padding: 0.2 }}
+        connectOnClick={true}
+        connectionMode="loose"
       >
         <Background 
           color={isDark ? '#313244' : '#d1d5db'} 
