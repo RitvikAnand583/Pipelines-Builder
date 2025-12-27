@@ -18,7 +18,7 @@ const CONTENT_TYPES = [
   { value: 'text/plain', label: 'Plain Text' },
 ];
 
-export const APINode = ({ id, data }) => {
+export const APINode = ({ id, data, selected }) => {
   const [method, setMethod] = useState(data?.method || 'GET');
   const [url, setUrl] = useState(data?.url || '');
   const [contentType, setContentType] = useState(data?.contentType || 'application/json');
@@ -28,17 +28,11 @@ export const APINode = ({ id, data }) => {
     <BaseNode
       id={id}
       title="API Request"
-      icon="🌐"
       type="api"
-      inputs={[
-        { id: 'headers', label: 'Headers' },
-        { id: 'body', label: 'Body' },
-      ]}
-      outputs={[
-        { id: 'response', label: 'Response' },
-        { id: 'status', label: 'Status' },
-      ]}
+      inputs={[{ id: 'body' }]}
+      outputs={[{ id: 'response' }]}
       isDark={isDark}
+      selected={selected}
     >
       <NodeField label="Method" isDark={isDark}>
         <NodeSelect

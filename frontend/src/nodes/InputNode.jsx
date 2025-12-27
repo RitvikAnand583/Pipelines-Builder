@@ -10,7 +10,7 @@ const INPUT_TYPES = [
   { value: 'json', label: 'JSON' },
 ];
 
-export const InputNode = ({ id, data }) => {
+export const InputNode = ({ id, data, selected }) => {
   const [name, setName] = useState(data?.inputName || id.replace('customInput-', 'input_'));
   const [inputType, setInputType] = useState(data?.inputType || 'text');
   const isDark = data?.isDark ?? true;
@@ -19,10 +19,10 @@ export const InputNode = ({ id, data }) => {
     <BaseNode
       id={id}
       title="Input"
-      icon="📥"
       type="input"
       outputs={[{ id: 'value', label: 'Output' }]}
       isDark={isDark}
+      selected={selected}
     >
       <NodeField label="Name" isDark={isDark}>
         <NodeInput
@@ -45,4 +45,4 @@ export const InputNode = ({ id, data }) => {
   );
 };
 
-export default InputNode;
+

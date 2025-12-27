@@ -10,7 +10,7 @@ const LLM_MODELS = [
   { value: 'llama-2', label: 'Llama 2' },
 ];
 
-export const LLMNode = ({ id, data }) => {
+export const LLMNode = ({ id, data, selected }) => {
   const [model, setModel] = useState(data?.model || 'gpt-4');
   const isDark = data?.isDark ?? true;
 
@@ -18,14 +18,11 @@ export const LLMNode = ({ id, data }) => {
     <BaseNode
       id={id}
       title="LLM"
-      icon="🤖"
       type="llm"
-      inputs={[
-        { id: 'system', label: 'System' },
-        { id: 'prompt', label: 'Prompt' },
-      ]}
-      outputs={[{ id: 'response', label: 'Response' }]}
+      inputs={[{ id: 'prompt' }]}
+      outputs={[{ id: 'response' }]}
       isDark={isDark}
+      selected={selected}
     >
       <NodeField label="Model" isDark={isDark}>
         <NodeSelect

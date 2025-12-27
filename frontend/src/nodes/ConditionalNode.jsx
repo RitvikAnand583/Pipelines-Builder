@@ -15,7 +15,7 @@ const OPERATORS = [
   { value: 'is_not_empty', label: 'Is Not Empty' },
 ];
 
-export const ConditionalNode = ({ id, data }) => {
+export const ConditionalNode = ({ id, data, selected }) => {
   const [operator, setOperator] = useState(data?.operator || 'equals');
   const [compareValue, setCompareValue] = useState(data?.compareValue || '');
   const isDark = data?.isDark ?? true;
@@ -26,7 +26,6 @@ export const ConditionalNode = ({ id, data }) => {
     <BaseNode
       id={id}
       title="Conditional"
-      icon="🔀"
       type="conditional"
       inputs={[{ id: 'value', label: 'Value' }]}
       outputs={[
@@ -34,6 +33,8 @@ export const ConditionalNode = ({ id, data }) => {
         { id: 'false', label: 'False' },
       ]}
       isDark={isDark}
+      useMultipleHandles={true}
+      selected={selected}
     >
       <NodeField label="Condition" isDark={isDark}>
         <NodeSelect

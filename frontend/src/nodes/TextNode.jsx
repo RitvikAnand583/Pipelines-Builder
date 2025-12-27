@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { BaseNode, NodeField, NodeTextArea } from './BaseNode';
 
-export const TextNode = ({ id, data }) => {
+export const TextNode = ({ id, data, selected }) => {
   const [text, setText] = useState(data?.text || '');
   const isDark = data?.isDark ?? true;
 
@@ -11,10 +11,10 @@ export const TextNode = ({ id, data }) => {
     <BaseNode
       id={id}
       title="Text"
-      icon="📝"
       type="text"
       outputs={[{ id: 'output', label: 'Text' }]}
       isDark={isDark}
+      selected={selected}
     >
       <NodeField label="Content" isDark={isDark}>
         <NodeTextArea

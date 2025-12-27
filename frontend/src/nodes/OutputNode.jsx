@@ -10,7 +10,7 @@ const OUTPUT_TYPES = [
   { value: 'json', label: 'JSON' },
 ];
 
-export const OutputNode = ({ id, data }) => {
+export const OutputNode = ({ id, data, selected }) => {
   const [name, setName] = useState(data?.outputName || id.replace('customOutput-', 'output_'));
   const [outputType, setOutputType] = useState(data?.outputType || 'text');
   const isDark = data?.isDark ?? true;
@@ -19,10 +19,10 @@ export const OutputNode = ({ id, data }) => {
     <BaseNode
       id={id}
       title="Output"
-      icon="📤"
       type="output"
       inputs={[{ id: 'value', label: 'Input' }]}
       isDark={isDark}
+      selected={selected}
     >
       <NodeField label="Name" isDark={isDark}>
         <NodeInput
