@@ -1,9 +1,11 @@
 import { useState, useRef, useCallback } from 'react';
-import ReactFlow, { Controls, Background, MiniMap, getBezierPath } from 'reactflow';
+import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
 import { useStore } from '../store';
 import { shallow } from 'zustand/shallow';
 import { nodeTypes } from '../nodes';
 import { Grid3X3 } from 'lucide-react';
+import SmoothEdge from './SmoothEdge';
+import ZoomOverlay from './ZoomOverlay';
 
 import 'reactflow/dist/style.css';
 
@@ -19,57 +21,6 @@ const selector = (state) => ({
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
 });
-
-// Custom smooth animated edge
-const SmoothEdge = ({ 
-  id, 
-  sourceX, 
-  sourceY, 
-  targetX, 
-  targetY, 
-  sourcePosition, 
-  targetPosition, 
-  style, 
-  markerEnd, 
-  selected,
-  animated 
-}) => {
-  const [edgePath] = getBezierPath({
-    sourceX,
-    sourceY,
-    sourcePosition,
-    targetX,
-    targetY,
-    targetPosition,
-  });
-
-  const strokeColor = style?.stroke || '#89b4fa';
-
-  return (
-    <>
-      {/* Subtle glow layer */}
-      <path
-        d={edgePath}
-        fill="none"
-        stroke={strokeColor}
-        strokeWidth={selected ? 6 : 4}
-        strokeOpacity={0.15}
-        strokeLinecap="round"
-      />
-      {/* Main edge */}
-      <path
-        d={edgePath}
-        fill="none"
-        stroke={strokeColor}
-        strokeWidth={selected ? 2.5 : 2}
-        strokeLinecap="round"
-        style={{
-          filter: selected ? `drop-shadow(0 0 4px ${strokeColor})` : 'none',
-        }}
-      />
-    </>
-  );
-};
 
 // Custom edge types
 const edgeTypes = {
@@ -88,6 +39,7 @@ const defaultEdgeOptions = {
 export const PipelineUI = ({ isDark }) => {
   const reactFlowWrapper = useRef(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
+  const [zoom, setZoom] = useState(1);
   const { nodes, edges, getNodeID, addNode, onNodesChange, onEdgesChange, onConnect } = useStore(selector, shallow);
 
   const getInitNodeData = useCallback((nodeID, type) => {
@@ -131,6 +83,12 @@ export const PipelineUI = ({ isDark }) => {
     event.dataTransfer.dropEffect = 'move';
   }, []);
 
+
+  // Track zoom changes
+  const handleMove = useCallback((event, viewport) => {
+    setZoom(viewport.zoom);
+  }, []);
+
   return (
     <div ref={reactFlowWrapper} className={`flex-1 relative ${isDark ? 'bg-dark-bg' : 'bg-gray-50'}`}>
       {/* Empty state overlay */}
@@ -149,6 +107,9 @@ export const PipelineUI = ({ isDark }) => {
         </div>
       )}
 
+      {/* Zoom Percentage Overlay (Top Left) */}
+      <ZoomOverlay zoom={zoom} isDark={isDark} />
+
       <ReactFlow
         nodes={nodes.map(node => ({ ...node, data: { ...node.data, isDark } }))}
         edges={edges.map(edge => ({ 
@@ -165,6 +126,7 @@ export const PipelineUI = ({ isDark }) => {
         onDrop={onDrop}
         onDragOver={onDragOver}
         onInit={setReactFlowInstance}
+        onMove={handleMove}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         proOptions={proOptions}
