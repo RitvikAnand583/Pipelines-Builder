@@ -1,7 +1,5 @@
-// LLMNode.jsx - Large Language Model node
-
 import { useState } from 'react';
-import { BaseNode, NodeField, NodeSelect, NodeInfo } from './BaseNode';
+import { BaseNode, NodeField, NodeSelect } from './BaseNode';
 
 const LLM_MODELS = [
   { value: 'gpt-4', label: 'GPT-4' },

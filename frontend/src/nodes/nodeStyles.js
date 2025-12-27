@@ -1,4 +1,3 @@
-// Accent colors for different node types (dark mode)
 export const nodeAccentsDark = {
   input: {
     border: 'border-l-accent-blue/50',
@@ -42,6 +41,29 @@ export const nodeAccentsDark = {
     iconColor: 'text-accent-red',
     handleColor: '#f38ba8',
   },
+  transform: {
+    border: 'border-l-[#94e2d5]/50', 
+    glow: 'hover:shadow-[0_0_12px_rgba(148,226,213,0.15)]',
+    iconBg: 'bg-[#94e2d5]/20',
+    iconColor: 'text-[#94e2d5]',
+    handleColor: '#94e2d5',
+  },
+  integration: {
+    border: 'border-l-[#f5c2e7]/50', 
+    glow: 'hover:shadow-[0_0_12px_rgba(245,194,231,0.15)]',
+    iconBg: 'bg-[#f5c2e7]/20',
+    iconColor: 'text-[#f5c2e7]',
+    handleColor: '#f5c2e7',
+  },
+  merge: {
+    border: 'border-l-[#b4befe]/50', 
+    glow: 'hover:shadow-[0_0_12px_rgba(180,190,254,0.15)]',
+    iconBg: 'bg-[#b4befe]/20',
+    iconColor: 'text-[#b4befe]',
+    handleColor: '#b4befe',
+  },
+
+
   default: {
     border: 'border-l-dark-muted/50',
     glow: '',
@@ -95,6 +117,30 @@ export const nodeAccentsLight = {
     iconColor: 'text-red-600',
     handleColor: '#ef4444',
   },
+
+  transform: {
+    border: 'border-l-[#0d9488]', 
+    glow: 'hover:shadow-[0_0_12px_rgba(13,148,136,0.2)]',
+    iconBg: 'bg-teal-100',
+    iconColor: 'text-teal-600',
+    handleColor: '#0d9488',
+  },
+  integration: {
+    border: 'border-l-[#db2777]', 
+    glow: 'hover:shadow-[0_0_12px_rgba(219,39,119,0.2)]',
+    iconBg: 'bg-pink-100',
+    iconColor: 'text-pink-600',
+    handleColor: '#db2777',
+  },
+  merge: {
+    border: 'border-l-[#4f46e5]', 
+    glow: 'hover:shadow-[0_0_12px_rgba(79,70,229,0.2)]',
+    iconBg: 'bg-indigo-100',
+    iconColor: 'text-indigo-600',
+    handleColor: '#4f46e5',
+  },
+
+
   default: {
     border: 'border-l-light-muted',
     glow: '',

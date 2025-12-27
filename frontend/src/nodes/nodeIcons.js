@@ -4,7 +4,10 @@ import {
   Bot, 
   FileText, 
   Globe, 
-  GitBranch 
+  GitBranch,
+  FileCode,
+  Puzzle,
+  GitMerge
 } from 'lucide-react';
 
 // Icon mapping for node types
@@ -15,6 +18,9 @@ export const nodeIcons = {
   text: FileText,
   api: Globe,
   conditional: GitBranch,
+  transform: FileCode,  
+  integration: Puzzle,  
+  merge: GitMerge,      
 };
 
 export default nodeIcons;

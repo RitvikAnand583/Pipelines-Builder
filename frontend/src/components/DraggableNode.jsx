@@ -4,7 +4,10 @@ import {
   Bot, 
   FileText, 
   Globe, 
-  GitBranch 
+  GitBranch,
+  FileCode, 
+  Puzzle,   
+  GitMerge  
 } from 'lucide-react';
 
 const nodeIcons = {
@@ -14,6 +17,9 @@ const nodeIcons = {
   text: FileText,
   api: Globe,
   conditional: GitBranch,
+  transform: FileCode,
+  integration: Puzzle,
+  merge: GitMerge,
 };
 
 const nodeColors = {
@@ -89,6 +95,42 @@ const nodeColors = {
       icon: 'text-red-600',
     },
   },
+  transform: {
+    dark: {
+      border: 'hover:border-teal-400',
+      bg: 'hover:bg-teal-400/10',
+      icon: 'text-teal-400',
+    },
+    light: {
+      border: 'hover:border-teal-500',
+      bg: 'hover:bg-teal-50',
+      icon: 'text-teal-600',
+    },
+  },
+  integration: {
+    dark: {
+      border: 'hover:border-pink-400',
+      bg: 'hover:bg-pink-400/10',
+      icon: 'text-pink-400',
+    },
+    light: {
+      border: 'hover:border-pink-500',
+      bg: 'hover:bg-pink-50',
+      icon: 'text-pink-600',
+    },
+  },
+  merge: {
+    dark: {
+      border: 'hover:border-indigo-400',
+      bg: 'hover:bg-indigo-400/10',
+      icon: 'text-indigo-400',
+    },
+    light: {
+      border: 'hover:border-indigo-500',
+      bg: 'hover:bg-indigo-50',
+      icon: 'text-indigo-600',
+    },
+  },
 };
 
 export const DraggableNode = ({ type, label, isDark }) => {
@@ -124,4 +166,5 @@ export const DraggableNode = ({ type, label, isDark }) => {
     </div>
   );
 };
+
 export default DraggableNode;

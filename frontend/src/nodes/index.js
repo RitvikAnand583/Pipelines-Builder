@@ -10,6 +10,9 @@ export { LLMNode } from './LLMNode';
 export { TextNode } from './TextNode';
 export { APINode } from './APINode';
 export { ConditionalNode } from './ConditionalNode';
+export { TransformNode } from './TransformNode';
+export { MergeNode } from './MergeNode';
+export { IntegrationNode } from './IntegrationNode';
 
 // Node type registry for React Flow
 export const nodeTypes = {
@@ -19,6 +22,9 @@ export const nodeTypes = {
   text: require('./TextNode').TextNode,
   api: require('./APINode').APINode,
   conditional: require('./ConditionalNode').ConditionalNode,
+  transform: require('./TransformNode').TransformNode,
+  merge: require('./MergeNode').MergeNode,
+  integration: require('./IntegrationNode').IntegrationNode,
 };
 
 // Node configuration for toolbar
@@ -29,4 +35,7 @@ export const nodeConfig = [
   { type: 'text', label: 'Text', icon: '📝' },
   { type: 'api', label: 'API', icon: '🌐' },
   { type: 'conditional', label: 'Conditional', icon: '🔀' },
+  { type: 'transform', label: 'Transform', icon: '⚙️' },
+  { type: 'merge', label: 'Merge', icon: '🔗' },
+  { type: 'integration', label: 'Integration', icon: '🔌' },
 ];
