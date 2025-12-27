@@ -127,6 +127,7 @@ const nodeAccentsLight = {
 /**
  * BaseNode - Reusable node wrapper component
  * @param {boolean} useMultipleHandles - If true, uses positioned handles (for conditional node)
+ * @param {object} style - Custom inline styles for the node container
  */
 export const BaseNode = ({
   id,
@@ -138,6 +139,7 @@ export const BaseNode = ({
   isDark = true,
   useMultipleHandles = false,
   selected = false,
+  style = {},
 }) => {
   // Select accent colors based on theme
   const accents = isDark ? nodeAccentsDark : nodeAccentsLight;
@@ -161,6 +163,7 @@ export const BaseNode = ({
           ? 'bg-dark-surface border-dark-border shadow-node' 
           : 'bg-white border-light-border shadow-[0_2px_8px_rgba(0,0,0,0.08)]'}
       `}
+      style={style}
     >
       {/* Node Resizer */}
       <NodeResizer
