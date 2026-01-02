@@ -79,7 +79,7 @@ export const SubmitButton = ({ isDark }) => {
         {/* Submit Button */}
         <button
           onClick={handleSubmit}
-          disabled={nodes.length === 0 || isLoading}
+          disabled={nodes.length === 0 || isLoading || true}
           className={`
             flex items-center gap-2 px-6 py-2.5 rounded-xl font-semibold text-sm
             transition-all duration-300 

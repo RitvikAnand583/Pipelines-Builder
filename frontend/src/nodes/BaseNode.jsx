@@ -208,5 +208,7 @@ export const BaseNode = ({
   );
 };
 
+// Re-export field components for convenience
 export { NodeField, NodeInput, NodeSelect, NodeTextArea, NodeInfo } from './NodeFields';
+
 export default BaseNode;
